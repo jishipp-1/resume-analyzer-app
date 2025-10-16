@@ -10,4 +10,4 @@ python-docx==0.8.11
 openai==1.33.0
 python-dotenv==1.0.0
 rapidfuzz==2.15.1
-psycopg2-binary==2.9.6
+psycopg[binary]
