@@ -43,10 +43,13 @@ Base.metadata.create_all(bind=engine)
 # ========================
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://resume-analyzer-app-majh.onrender.com/"],
+      allow_origins=[
+        "https://resume-analyzer-app-1.onrender.com",  # ✅ your frontend
+    ],
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
-)
+   )
 
 MAX_BCRYPT_BYTES = 72
 
