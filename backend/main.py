@@ -8,20 +8,20 @@ from openai import OpenAI
 # Load environment variables
 load_dotenv()
 
-# Auth functions
-from auth import hash_password, verify_password, create_access_token
+# Auth functions (relative import)
+from .auth import hash_password, verify_password, create_access_token
 
-# Database
-from database import Base, engine, get_db
+# Database (relative import)
+from .database import Base, engine, get_db
 
-# Models and Schemas
-from models import User, Resume
-from schemas import UserCreate, UserLogin
+# Models and Schemas (relative import)
+from .models import User, Resume
+from .schemas import UserCreate, UserLogin
 
-# Resume analysis utils
-from utils.extract_text import extract_text_from_upload
-from utils.classify_resume import detect_role, analyze_resume_evidence
-from utils.match_jd import compare_resume_and_jd
+# Resume analysis utils (relative import)
+from .utils.extract_text import extract_text_from_upload
+from .utils.classify_resume import detect_role, analyze_resume_evidence
+from .utils.match_jd import compare_resume_and_jd
 
 # ========================
 # App & OpenAI Setup
@@ -60,14 +60,16 @@ def register(user: UserCreate = Body(...), db: Session = Depends(get_db)):
         if existing:
             raise HTTPException(status_code=400, detail="Email already exists")
 
-        password_truncated = user.password.encode("utf-8")[:MAX_BCRYPT_BYTES].decode("utf-8", errors="ignore")
+        password_truncated = user.password.encode("utf-8")[:MAX_BCRYPT_BYTES].decode(
+            "utf-8", errors="ignore"
+        )
         hashed_password = hash_password(password_truncated)
 
         new_user = User(
             name=user.name,
             email=user.email,
             password_hash=hashed_password,
-            role=user.role
+            role=user.role,
         )
         db.add(new_user)
         db.commit()
@@ -77,8 +79,10 @@ def register(user: UserCreate = Body(...), db: Session = Depends(get_db)):
 
     except Exception as e:
         import traceback
+
         traceback.print_exc()
         raise HTTPException(status_code=500, detail=str(e))
+
 
 # ========================
 # Login endpoint
@@ -89,12 +93,15 @@ def login(data: UserLogin, db: Session = Depends(get_db)):
     if not user:
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
-    password_truncated = data.password.encode("utf-8")[:MAX_BCRYPT_BYTES].decode("utf-8", errors="ignore")
+    password_truncated = data.password.encode("utf-8")[:MAX_BCRYPT_BYTES].decode(
+        "utf-8", errors="ignore"
+    )
     if not verify_password(password_truncated, user.password_hash):
         raise HTTPException(status_code=401, detail="Invalid credentials")
 
     token = create_access_token({"sub": user.email, "role": user.role})
     return {"access_token": token, "role": user.role}
+
 
 # ========================
 # Analyze Resume endpoint
@@ -123,6 +130,7 @@ async def analyze_resume(file: UploadFile):
 
     except Exception as e:
         import traceback
+
         traceback.print_exc()
         ai_analysis = f"Analysis generation failed: {str(e)}"
 
@@ -133,6 +141,7 @@ async def analyze_resume(file: UploadFile):
         "ai_analysis": ai_analysis,
         "ocr_needed": needs_ocr,
     }
+
 
 # ========================
 # Compare Resume with JD
@@ -145,6 +154,7 @@ async def compare_resume_jd(resume: UploadFile, jd_text: str = Form(...)):
 
     comparison = compare_resume_and_jd(resume_text, jd_text)
     return {"comparison_result": comparison}
+
 
 # ========================
 # Test endpoint
