@@ -233,6 +233,12 @@ button:hover {
   color: white;
   padding: 1rem 2rem;
   font-size: 1.2rem;
+
+   position: sticky;           /* stays visible when scrolling */
+  top: 0;
+  z-index: 10;
+  padding: 10px 20px;
+  display: flex;
 }
 
 .title {
