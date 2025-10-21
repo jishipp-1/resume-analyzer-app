@@ -217,7 +217,7 @@ button:hover {
 /* Full-page dashboard layout */
 .full-page {
   padding: 20px;
-  width: 100%;
+  width: 100vw;
   min-height: 100vh;
   background-color: #f5f7fb;
   display: flex;
@@ -332,6 +332,7 @@ button:hover {
   font-weight: 500;
   text-align: center;
   margin-bottom: 12px;
+  color: #000;
 }
 
 .file-input,
