@@ -304,13 +304,9 @@ button:hover {
 
 /* Optional: adjust container scroll area */
 #innercontent {
-  padding: 20px;
-  background-color: #f5f7fb;
+  padding: 70px;
+  background-color: #607296;
   border-radius: 20px;
   max-height: calc(100vh - 150px);
   overflow-y: auto;
-  margin-left: 450px;
-  margin-top: 130px;
-  gap: 30px;
-  width: 550px;
 }
