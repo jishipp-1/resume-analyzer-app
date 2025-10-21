@@ -309,4 +309,8 @@ button:hover {
   border-radius: 20px;
   max-height: calc(100vh - 150px);
   overflow-y: auto;
+  margin-left: 450px;
+  margin-top: 130px;
+  gap: 30px;
+  width: 550px;
 }
