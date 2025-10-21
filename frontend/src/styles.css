@@ -256,9 +256,57 @@ button:hover {
 .tab-btn:hover {
   opacity: 0.9;
 }
+
+/* ========================= */
+/* Scrollable AI result box  */
+/* ========================= */
+.result-box {
+  max-height: 400px; /* limit height to avoid overflow */
+  overflow-y: auto; /* enable vertical scrolling */
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  font-size: 15px;
+  color: #333;
+  border: 1px solid #e5e7eb;
+}
+
+/* Stylish scrollbar (Webkit browsers) */
+.result-box::-webkit-scrollbar {
+  width: 8px;
+}
+.result-box::-webkit-scrollbar-thumb {
+  background: #0ea5a4;
+  border-radius: 10px;
+}
+.result-box::-webkit-scrollbar-thumb:hover {
+  background: #0c8c8a;
+}
+
+/* Markdown styling inside result */
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+  color: #0ea5a4;
+  margin-top: 16px;
+}
+.markdown ul,
+.markdown ol {
+  margin-left: 20px;
+}
+.markdown strong {
+  color: #085b5b;
+}
+
+/* Optional: adjust container scroll area */
 #innercontent {
-  margin-left: 450px;
-  margin-top: 130px;
-  gap: 30px;
-  width: 550px;
+  padding: 20px;
+  background-color: #f5f7fb;
+  border-radius: 20px;
+  max-height: calc(100vh - 150px);
+  overflow-y: auto;
 }
